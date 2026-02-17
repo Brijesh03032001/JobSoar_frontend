@@ -6,11 +6,8 @@ import { IconSearch, IconRocket, IconUsers, IconBriefcase, IconSparkles, IconTre
 import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 
-const MotionContainer = motion.create(Container);
-const MotionStack = motion.create(Stack);
-const MotionButton = motion.create(Button);
-const MotionBadge = motion.create(Badge);
-const MotionBox = motion.create(Box);
+// Motion wrappers for Mantine components
+const MotionDiv = motion.div;
 
 // Floating animation for background elements
 const floatingAnimation = {
@@ -60,7 +57,7 @@ export default function Home() {
       overflow: 'hidden'
     }}>
       {/* Animated Background Elements */}
-      <MotionBox
+      <motion.div
         style={{
           position: 'absolute',
           top: '10%',
@@ -74,7 +71,7 @@ export default function Home() {
         }}
         animate={floatingAnimation}
       />
-      <MotionBox
+      <motion.div
         style={{
           position: 'absolute',
           bottom: '10%',
@@ -97,11 +94,12 @@ export default function Home() {
       />
 
       {/* Hero Section */}
-      <MotionContainer 
+      <Container 
         size="xl" 
         py={100}
-        style={{ position: 'relative', zIndex: 1, y, opacity }}
+        style={{ position: 'relative', zIndex: 1 }}
       >
+        <motion.div style={{ y, opacity }}>
         <Grid gutter="xl" align="center">
           {/* Left Side - Content */}
           <Grid.Col span={{ base: 12, md: 6 }}>
@@ -110,7 +108,7 @@ export default function Home() {
               initial="hidden"
               animate="visible"
             >
-              <MotionStack gap="xl">
+              <Stack gap="xl">
                 <motion.div variants={itemVariants}>
                   <Group gap="sm" align="center">
                     <motion.div
@@ -138,20 +136,7 @@ export default function Home() {
                         <IconSparkles size={20} color="white" stroke={2.5} />
                       </Box>
                     </motion.div>
-                    <MotionBadge
-                      size="lg"
-                      variant="light"
-                      color="brand"
-                      style={{ 
-                        padding: '10px 20px',
-                        fontSize: '13px',
-                        fontWeight: 800,
-                        letterSpacing: '1px',
-                        border: '2px solid #2EB19F',
-                        background: 'linear-gradient(135deg, rgba(46, 177, 159, 0.15) 0%, rgba(99, 194, 210, 0.15) 100%)',
-                        backdropFilter: 'blur(10px)',
-                        color: '#1a7a6a'
-                      }}
+                    <motion.div
                       animate={{
                         boxShadow: [
                           '0 0 0 0 rgba(46, 177, 159, 0.4)',
@@ -165,8 +150,24 @@ export default function Home() {
                         }
                       }}
                     >
+                      <Badge
+                      size="lg"
+                      variant="light"
+                      color="brand"
+                      style={{ 
+                        padding: '10px 20px',
+                        fontSize: '13px',
+                        fontWeight: 800,
+                        letterSpacing: '1px',
+                        border: '2px solid #2EB19F',
+                        background: 'linear-gradient(135deg, rgba(46, 177, 159, 0.15) 0%, rgba(99, 194, 210, 0.15) 100%)',
+                        backdropFilter: 'blur(10px)',
+                        color: '#1a7a6a'
+                      }}
+                    >
                       SMART JOB MATCHING PLATFORM
-                    </MotionBadge>
+                    </Badge>
+                    </motion.div>
                     <motion.div
                       animate={{
                         scale: [1, 1.3, 1],
@@ -297,7 +298,15 @@ export default function Home() {
 
                 <motion.div variants={itemVariants}>
                   <Group gap="md">
-                    <MotionButton
+                    <motion.div
+                      whileHover={{ 
+                        scale: 1.05,
+                        y: -4,
+                        transition: { duration: 0.2 }
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Button
                       size="xl"
                       color="brand"
                       leftSection={<IconSearch size={24} />}
@@ -311,17 +320,19 @@ export default function Home() {
                         border: 'none',
                         boxShadow: '0 8px 24px rgba(46, 177, 159, 0.35), 0 2px 8px rgba(0,0,0,0.1)'
                       }}
+                    >
+                      Find Jobs
+                    </Button>
+                    </motion.div>
+                    <motion.div
                       whileHover={{ 
                         scale: 1.05,
                         y: -4,
-                        boxShadow: '0 12px 32px rgba(46, 177, 159, 0.45), 0 4px 12px rgba(0,0,0,0.15)',
                         transition: { duration: 0.2 }
                       }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Find Jobs
-                    </MotionButton>
-                    <MotionButton
+                      <Button
                       size="xl"
                       variant="outline"
                       color="brand"
@@ -336,16 +347,10 @@ export default function Home() {
                         borderColor: '#2EB19F',
                         color: '#2EB19F'
                       }}
-                      whileHover={{ 
-                        scale: 1.05,
-                        y: -4,
-                        background: 'rgba(46, 177, 159, 0.12)',
-                        transition: { duration: 0.2 }
-                      }}
-                      whileTap={{ scale: 0.98 }}
                     >
                       Post a Job
-                    </MotionButton>
+                    </Button>
+                    </motion.div>
                   </Group>
                 </motion.div>
 
@@ -379,7 +384,7 @@ export default function Home() {
                     ))}
                   </Group>
                 </motion.div>
-              </MotionStack>
+              </Stack>
             </motion.div>
           </Grid.Col>
 
@@ -431,7 +436,8 @@ export default function Home() {
             </motion.div>
           </Grid.Col>
         </Grid>
-      </MotionContainer>
+        </motion.div>
+      </Container>
 
       {/* Detailed Features with Images */}
       <Box style={{ position: 'relative', zIndex: 1 }} py={80}>
